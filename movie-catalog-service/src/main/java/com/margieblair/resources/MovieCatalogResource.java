@@ -19,17 +19,16 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/catalog")
 public class MovieCatalogResource {
-
+//autowired is a consumer, the more you know, huh
     @Autowired
     private RestTemplate restTemplate;
 
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
         //get all rated movie ids
-        //for each movie id call movie infor service and get details
+        //for each movie id call movie inform service and get details
         //put them all together
-//        Movie movie = restTemplate.getForObject("http://localhost:8081/movies/foo", Movie.class);
-//you just want one instance of the rest template
+        //you just want one instance of the rest template
         //you make a bean which is a singleton, it doesn't need to be reinstantiated every time we use the restTemplate()
         List<Rating> ratings = Arrays.asList(
                 new Rating("1234", 4),
