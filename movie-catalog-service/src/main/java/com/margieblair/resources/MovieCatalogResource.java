@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import com.margieblair.model.Movie;
 import com.margieblair.model.Rating;
+import com.margieblair.model.UserRating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,14 +37,15 @@ public class MovieCatalogResource {
         //this actually makes the builder, similar to creating a new rest
         //you just want one instance of the rest template
         //you make a bean which is a singleton, it doesn't need to be reinstantiated every time we use the restTemplate()
-        List<Rating> ratings = restTemplate.getForObject("localhost:8082/ratingsdata/users" + userId, ParameterizedType<List<Rating>>);
+        UserRating ratings = restTemplate.getForObject("localhost:8082/ratingsdata/users" + userId, UserRating.class);
 
-        return ratings.stream().map(rating -> {
-//            Movie movie = webClientBuilder.build().get().uri("http://localhost:8081/movies/"+rating.getMovieId())
-//            .retrieve().bodyToMono(Movie.class).block();
-            //
+        return ratings.getUserRating().stream().map(rating -> {
+
              Movie movie = restTemplate.getForObject("http://localhost:8081/movies/"+rating.getMovieId(), Movie.class);
             return new CatalogItem(movie.getName(), "Desc", rating.getRating());
         }).collect(Collectors.toList());
     }
 }
+//            Movie movie = webClientBuilder.build().get().uri("http://localhost:8081/movies/"+rating.getMovieId())
+//            .retrieve().bodyToMono(Movie.class).block();
+//
