@@ -1,9 +1,12 @@
-package main.java.com.margieblair.resource;
+package com.margieblair.resource;
 
 
 import main.java.com.margieblair.models.Movie;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@RequestController
+@RestController
 @RequestMapping("/movies")
 public class MovieResource {
 
