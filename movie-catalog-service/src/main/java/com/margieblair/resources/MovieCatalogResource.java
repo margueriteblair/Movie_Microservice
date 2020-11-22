@@ -25,15 +25,15 @@ public class MovieCatalogResource {
         //for each movie id call movie infor service and get details
         //put them all together
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://localhost:8081/movies/foo", Movie,)
+//        Movie movie = restTemplate.getForObject("http://localhost:8081/movies/foo", Movie.class);
 
         List<Rating> ratings = Arrays.asList(
                 new Rating("1234", 4),
                 new Rating("4567", 3));
 
         return ratings.stream().map(rating -> {
-
-            new CatalogItem("Transformers", "test", 4)
+            Movie movie = restTemplate.getForObject("http://localhost:8080/movies/"+rating.getMovieId(), Movie.class);
+            return new CatalogItem(movie.getName(), "Desc", rating.getRating());
         }).collect(Collectors.toList());
     }
 }
