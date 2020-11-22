@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 //just that one controller needed to be a rest controller!
 @RestController
@@ -22,12 +23,16 @@ public class MovieCatalogResource {
 //autowired is a consumer, the more you know, huh
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
         //get all rated movie ids
         //for each movie id call movie inform service and get details
         //put them all together
+
+        //this actually makes the builder, similar to creating a new rest
         //you just want one instance of the rest template
         //you make a bean which is a singleton, it doesn't need to be reinstantiated every time we use the restTemplate()
         List<Rating> ratings = Arrays.asList(
