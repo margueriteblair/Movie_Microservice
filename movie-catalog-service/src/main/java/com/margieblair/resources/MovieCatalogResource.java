@@ -40,10 +40,10 @@ public class MovieCatalogResource {
                 new Rating("4567", 3));
 
         return ratings.stream().map(rating -> {
-            Movie movie = webClientBuilder.build().get().uri("http://localhost:8081/movies/"+rating.getMovieId())
-            .retrieve().bodyToMono(Movie.class).block();
+//            Movie movie = webClientBuilder.build().get().uri("http://localhost:8081/movies/"+rating.getMovieId())
+//            .retrieve().bodyToMono(Movie.class).block();
             //
-            // Movie movie = restTemplate.getForObject("http://localhost:8081/movies/"+rating.getMovieId(), Movie.class);
+             Movie movie = restTemplate.getForObject("http://localhost:8081/movies/"+rating.getMovieId(), Movie.class);
             return new CatalogItem(movie.getName(), "Desc", rating.getRating());
         }).collect(Collectors.toList());
     }
