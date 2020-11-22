@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.margieblair.model.Movie;
 import com.margieblair.model.Rating;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,14 +20,17 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/catalog")
 public class MovieCatalogResource {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
         //get all rated movie ids
         //for each movie id call movie infor service and get details
         //put them all together
-        RestTemplate restTemplate = new RestTemplate();
 //        Movie movie = restTemplate.getForObject("http://localhost:8081/movies/foo", Movie.class);
-
+//you just want one instance of the rest template
+        //you make a bean which is a singleton, it doesn't need to be reinstantiated every time we use the restTemplate()
         List<Rating> ratings = Arrays.asList(
                 new Rating("1234", 4),
                 new Rating("4567", 3));
