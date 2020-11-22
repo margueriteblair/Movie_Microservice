@@ -2,6 +2,7 @@ package com.margieblair.resources;
 
 import com.margieblair.model.CatalogItem;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -35,9 +36,7 @@ public class MovieCatalogResource {
         //this actually makes the builder, similar to creating a new rest
         //you just want one instance of the rest template
         //you make a bean which is a singleton, it doesn't need to be reinstantiated every time we use the restTemplate()
-        List<Rating> ratings = Arrays.asList(
-                new Rating("1234", 4),
-                new Rating("4567", 3));
+        List<Rating> ratings = restTemplate.getForObject("localhost:8082/ratingsdata/users" + userId, ParameterizedType<List<Rating>>);
 
         return ratings.stream().map(rating -> {
 //            Movie movie = webClientBuilder.build().get().uri("http://localhost:8081/movies/"+rating.getMovieId())
