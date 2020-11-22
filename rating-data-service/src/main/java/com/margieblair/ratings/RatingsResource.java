@@ -1,4 +1,10 @@
-package main.java.com.margieblair.ratings;
+package com.margieblair.ratings;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import main.java.com.margieblair.models.Rating;
 
 @RestController
 @RequestMapping("/ratingsdata")
