@@ -15,7 +15,7 @@ public class MovieInformationServiceApplication {
 		try {
 			SpringApplication.run(MovieInformationServiceApplication.class, args);
 		} catch (BeanCreationException ex) {
-			System.out.println("NO BEANS HERE FOOL");
+			System.out.println("NO BEANS HERE, FOOL");
 		}
 	}
 
