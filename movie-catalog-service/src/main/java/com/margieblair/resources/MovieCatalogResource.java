@@ -37,11 +37,11 @@ public class MovieCatalogResource {
         //this actually makes the builder, similar to creating a new rest
         //you just want one instance of the rest template
         //you make a bean which is a singleton, it doesn't need to be reinstantiated every time we use the restTemplate()
-        UserRating ratings = restTemplate.getForObject("localhost:8082/ratingsdata/users/" + userId, UserRating.class);
+        UserRating ratings = restTemplate.getForObject("http://ratings-data-service/ratingsdata/users/" + userId, UserRating.class);
 
         return ratings.getUserRating().stream().map(rating -> {
-
-             Movie movie = restTemplate.getForObject("http://localhost:8081/movies/"+rating.getMovieId(), Movie.class);
+        //no flexibility over changing the application name
+             Movie movie = restTemplate.getForObject("http://movie-information-service/movies/"+rating.getMovieId(), Movie.class);
             return new CatalogItem(movie.getName(), "Desc", rating.getRating());
         }).collect(Collectors.toList());
     }
