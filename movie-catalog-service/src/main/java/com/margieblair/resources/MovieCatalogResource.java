@@ -12,6 +12,7 @@ import com.margieblair.model.Movie;
 import com.margieblair.model.Rating;
 import com.margieblair.model.UserRating;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,8 @@ public class MovieCatalogResource {
     private RestTemplate restTemplate;
     @Autowired
     private WebClient.Builder webClientBuilder;
+    @Autowired
+    private DiscoveryClient discoveryClient; //this comes automatically with eureka
 
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
